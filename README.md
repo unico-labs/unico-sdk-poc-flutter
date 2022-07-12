@@ -1,6 +1,6 @@
 # unico_sdk_poc_flutter
 
-A new Flutter project.
+POC de implementação do SDK web unico | check em Flutter.
 
 ## Getting Started
 
