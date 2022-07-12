@@ -44,24 +44,20 @@ class _MyHomePageState extends State<MyHomePage>
       colorBackground: "#3295a8");
 
   final _configIos = UnicoConfig(
-      getProjectNumber: "81503569192742919497605725",
-      getProjectId: "flutter_poc3",
-      getMobileSdkAppId: "2:29066:ios",
-      getBundleIdentifier: "com.example.pocFlutter3",
-      getHostInfo:
-          "B+2O5141Qrvr9FcK3Z4a1iQeyPQEYHCvJ6IkN4JNpNzYisHkI9wo21bQ1juBi6Rx",
-      getHostKey:
-          "+1WJG40kwasvlpqtFi391NuOY+lba72Sc/qvkO2+JZm3tO4n6FsYcj/yFKAGSwue");
+      getProjectNumber: "Your ProjectNumber Ios",
+      getProjectId: "Your ProjectId Ios",
+      getMobileSdkAppId: "Your MobileSdkAppId Ios",
+      getBundleIdentifier: "Your BundleIdentifier Ios",
+      getHostInfo: "Your HostInfo Ios",
+      getHostKey: "Your HostKey Ios");
 
   final _configAndroid = UnicoConfig(
-      getProjectNumber: "58022533341712409503",
-      getProjectId: "unico-sdk-poc-flutter",
-      getMobileSdkAppId: "1:34278:android",
-      getBundleIdentifier: "com.example.unico_sdk_poc_flutter",
-      getHostInfo:
-          "B+2O5141Qrvr9FcK3Z4a1iQeyPQEYHCvJ6IkN4JNpNzYisHkI9wo21bQ1juBi6Rx",
-      getHostKey:
-          "1GqADFTKMoYpWAvGRCUjg+udoECocjOxmXu+BuRhtrieOdqDNHew4j2TJeyWsWSj");
+      getProjectNumber: "Your ProjectNumber Android",
+      getProjectId: "Your ProjectId Android",
+      getMobileSdkAppId: "Your MobileSdkAppId Android",
+      getBundleIdentifier: "Your BundleIdentifier Android",
+      getHostInfo: "Your HostInfo Android",
+      getHostKey: "Your HostKey Android");
 
   @override
   void initState() {
