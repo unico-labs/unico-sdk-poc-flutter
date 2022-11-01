@@ -8,7 +8,7 @@
 
 <div align='center'>
   
-  ### POC de implementação do SDK unico | check em Flutter
+  ### POC de implementação do SDK web unico | check em Flutter
   
   ![SDK](https://img.shields.io/badge/SDK-v3.0.0-blueviolet?logo=)
   ![FLUTTER](https://img.shields.io/badge/Flutter-blue?logo=flutter)
@@ -21,21 +21,21 @@
 ![ANDROID](https://img.shields.io/badge/Android-grey?logo=android)
 ![IOS](https://img.shields.io/badge/iOS-grey?logo=apple)
 
-- Android: Versão mínima do SDK Android igual a 21
-- iOS: Versão 11 ou superior
+- Android: Versão mínima do Android 5.0 (API de nível 21)
+- iOS: Versão mínima do iOS 11
 
 ### Dispositivos compatíveis
 
-- Android: Você pode conferior os aparelhos testados em nossos laboratórios <a href='https://support.apple.com/pt-br/HT209574'>nesta</a> lista de dispositivos.
+- Android: Você pode conferior os aparelhos testados em nossos laboratórios <a href='https://developers.unico.io/docs/check/guias/android/overview#dispositivos-compat%C3%ADveis'>nesta</a> lista de dispositivos.
 
-- iOS: Você pode conferir a lista com esses dispositivos nos <a href='https://developers.unico.io/guias/flutter/overview#disposit%C3%ADvos-android '>canais de suporte</a> oficiais da Apple.
+- iOS: Você pode conferir a lista com esses dispositivos nos <a href='https://support.apple.com/pt-br/HT209574'>canais de suporte</a> oficiais da Apple.
 
 ## ✨ Como começar
 
 ### Ambiente de desenvolvimento & Credenciais Unico
 
-- Primeiramente, você deve ter certeza que seu ambiente de desenvolvimento possui o Developer SDK do <a href='https://docs.flutter.dev/get-started/install'>Flutter</a> instalado.
-- Para utilizar nossos SDKs, você deve importar as credenciais unico (Client API Key) em seu projeto. Utilize <a href='https://developers.unico.io/guias/flutter/como-comecar#obtendo-suas-credenciais'>este</a> passo a passo para gerar as credenciais.
+- Primeiramente, você deve ter certeza que seu ambiente de desenvolvimento possuir o Developer SDK do <a href='https://docs.flutter.dev/get-started/install'>Flutter</a> instalado.
+- Para utilizar nossos SDKs, você deve importar as credenciais unico (Client API Key) em seu projeto. Utilize <a href='https://developers.unico.io/docs/check/guias/flutter/como-comecar#obtendo-suas-credenciais'>este</a> passo a passo para gerar as credenciais.
 
 Depois de configurar a API Key e obter o bundle da SDK iOS ou Android com os dados JSON, basta informá-los como parâmetros ao instanciar a interface `UnicoCheck`. Os parâmetros deverão ser enviados como objetos, gerados a partir do método `UnicoConfig`.
 
@@ -283,8 +283,8 @@ Em caso de sucesso, o objeto ResultCamera retornará 2 atributos (`base64` e `en
 
 ### 3️⃣ Customizar o frame de captura
 
-<strong>Este passo é opcional, porém recomendado.</strong> Oferecemos a possibilidade de customização do frame de captura por meio do nosso SDK. Para customizar o frame, basta utilizar o método correspondente a propriedade a ser customizada, e posteriormente, aplicar o novo estilo através do método `setTheme()`. Para mais informações, consulte em nossa página de <a href='https://developers.unico.io/guias/flutter/referencias#customizações'>Referências</a> do SDK.
+<strong>Este passo é opcional, porém recomendado.</strong> Oferecemos a possibilidade de customização do frame de captura por meio do nosso SDK. Para customizar o frame, basta utilizar o método correspondente a propriedade a ser customizada, e posteriormente, aplicar o novo estilo através do método `setTheme()`. Para mais informações, consulte em nossa página de <a href='https://developers.unico.io/docs/check/guias/flutter/referencias#customiza%C3%A7%C3%B5es'>Referências</a> do SDK.
 
 ## 🤔 Dúvidas
 
-Caso tenha alguma dúvida ou precise de ajuda com questões mais específicas, nossa <a href='https://developers.unico.io/guias/flutter/overview'>documentação</a> está disponível.
+Caso tenha alguma dúvida ou precise de ajuda com questões mais específicas, nossa <a href='https://developers.unico.io/docs/check/guias/flutter/overview'>documentação</a> está disponível.
