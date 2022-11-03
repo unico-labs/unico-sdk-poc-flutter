@@ -8,7 +8,7 @@
 
 <div align='center'>
   
-  ### POC de implementação do SDK web unico | check em Flutter
+  ### POC de implementação do SDK unico | check em Flutter
   
   ![SDK](https://img.shields.io/badge/SDK-v3.0.0-blueviolet?logo=)
   ![FLUTTER](https://img.shields.io/badge/Flutter-blue?logo=flutter)
