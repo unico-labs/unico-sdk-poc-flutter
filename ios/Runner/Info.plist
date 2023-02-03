@@ -6,8 +6,6 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>NSCameraUsageDescription</key> 
-	<string>Camera usage description</string>
 	<key>CFBundleDisplayName</key>
 	<string>Unico Sdk Poc Flutter</string>
 	<key>CFBundleExecutable</key>
