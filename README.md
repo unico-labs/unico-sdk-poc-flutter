@@ -10,7 +10,7 @@
   
   ### POC de implementação do SDK unico | check em Flutter
   
-  ![SDK](https://img.shields.io/badge/SDK-v3.0.7-blueviolet?logo=)
+  ![SDK](https://img.shields.io/badge/SDK-v3.0.10-blueviolet?logo=)
   ![FLUTTER](https://img.shields.io/badge/Flutter-blue?logo=flutter)
 </div>
 
