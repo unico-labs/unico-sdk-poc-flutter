@@ -1,47 +1,49 @@
-<p align='center'>
-  <a href='https://unico.io'>
-    <img width='350' src='https://unico.io/wp-content/uploads/2022/07/check.svg'></img>
+<p align="center">
+  <a href="https://unico.io">
+    <img width="350" src="https://unico.io/wp-content/uploads/2024/05/idcloud-horizontal-color.svg">
   </a>
 </p>
 
-<h1 align='center'>SDK Flutter</h1>
+<h1 align="center">SDK Flutter</h1>
 
-<div align='center'>
+<div align="center">
   
-  ### POC de implementação do SDK unico | check em Flutter
+### POC de implementação do SDK Unico | Check em Flutter
   
-  ![SDK](https://img.shields.io/badge/SDK-v3.0.10-blueviolet?logo=)
-  ![FLUTTER](https://img.shields.io/badge/Flutter-blue?logo=flutter)
+![SDK](https://img.shields.io/badge/SDK-v3.0.10-blueviolet?logo=)  
+![FLUTTER](https://img.shields.io/badge/Flutter-blue?logo=flutter)
 </div>
+
+---
 
 ## 💻 Compatibilidade
 
-### Versões
+### 📌 Versões
 
-![ANDROID](https://img.shields.io/badge/Android-grey?logo=android)
+![ANDROID](https://img.shields.io/badge/Android-grey?logo=android)  
 ![IOS](https://img.shields.io/badge/iOS-grey?logo=apple)
 
-- Android: Versão mínima do Android 5.0 (API de nível 21)
-- iOS: Versão mínima do iOS 11
+- **Android:** Versão mínima do Android 5.0 (API de nível 21)
+- **iOS:** Versão mínima do iOS 11
 
-### Dispositivos compatíveis
+### 📱 Dispositivos Compatíveis
 
-- Android: Você pode conferior os aparelhos testados em nossos laboratórios <a href='https://developers.unico.io/docs/check/guias/android/overview#dispositivos-compat%C3%ADveis'>nesta</a> lista de dispositivos.
+- **Android:** Confira os aparelhos testados em nossos laboratórios nesta [lista de dispositivos](https://developers.unico.io/docs/check/guias/android/overview#dispositivos-compat%C3%ADveis).
+- **iOS:** Veja a lista de dispositivos compatíveis nos [canais de suporte oficiais da Apple](https://support.apple.com/pt-br/HT209574).
 
-- iOS: Você pode conferir a lista com esses dispositivos nos <a href='https://support.apple.com/pt-br/HT209574'>canais de suporte</a> oficiais da Apple.
+---
 
-## ✨ Como começar
+## ✨ Como Começar
 
-### Ambiente de desenvolvimento & Credenciais Unico
+### 🚀 Ambiente de Desenvolvimento & Credenciais Unico
 
-- Primeiramente, você deve ter certeza que seu ambiente de desenvolvimento possuir o Developer SDK do <a href='https://docs.flutter.dev/get-started/install'>Flutter</a> instalado.
-- Para utilizar nossos SDKs, você deve importar as credenciais unico (Client API Key) em seu projeto. Utilize <a href='https://developers.unico.io/docs/check/guias/flutter/como-comecar#obtendo-suas-credenciais'>este</a> passo a passo para gerar as credenciais.
+- **Flutter SDK:** Certifique-se de ter o [Developer SDK do Flutter](https://docs.flutter.dev/get-started/install) instalado.
+- **Credenciais Unico:** Para utilizar nossos SDKs, importe as credenciais Unico (Client API Key) em seu projeto. Siga [este passo a passo](https://developers.unico.io/docs/check/guias/flutter/como-comecar#obtendo-suas-credenciais) para gerar as credenciais.
 
-Depois de configurar a API Key e obter o bundle da SDK iOS ou Android com os dados JSON, basta informá-los como parâmetros ao instanciar a interface `UnicoCheck`. Os parâmetros deverão ser enviados como objetos, gerados a partir do método `UnicoConfig`.
+Após configurar a API Key e obter o bundle da SDK (iOS ou Android) com os dados em JSON, informe-os como parâmetros ao instanciar a interface `UnicoCheck`. Esses parâmetros devem ser enviados como objetos, gerados a partir do método `UnicoConfig`.  
+Veja o exemplo:
 
-Segue o exemplo abaixo:
-
-```
+```dart
 final _configIos = UnicoConfig(
   getProjectNumber: "Your ProjectNumber Ios",
   getProjectId: "Your ProjectId Ios",
@@ -71,50 +73,56 @@ void initUnicoCamera() {
       unicoConfigAndroid: _configAndroid);
 }
 ```
+
+---
+
 ## 📦 Instalação
 
-### Utilizando o CLI do Flutter
+### 🛠️ Utilizando o CLI do Flutter
 
-```
+```bash
 $ flutter pub add unico_check
 ```
-### Permissões para utilizar a câmera
 
-Para utilizar o método de abertura de câmera é necessário adicionar as permissões antes de compilar a aplicação.
+### 🔒 Permissões para Utilizar a Câmera
 
-Insira as tags abaixo em:
-- `android > app > src > main > AndroidManifest.xml`
+Antes de compilar a aplicação, adicione as seguintes permissões:
 
-```
-<uses-permission android:name="android.permission.CAMERA" />
-<uses-permission android:name="android.permission.INTERNET" />
-```
-- `ios > Runner > Info.plist`
+- **Android:** No arquivo `android > app > src > main > AndroidManifest.xml`:
 
-```
-<key>NSCameraUsageDescription</key>
-<string>Camera usage description</string>
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key><true/>
-</dict>
-```
+  ```xml
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  ```
 
-### Inclusão da dependência
+- **iOS:** No arquivo `ios > Runner > Info.plist`:
 
-Importe nosso pacote em código Dart:
+  ```xml
+  <key>NSCameraUsageDescription</key>
+  <string>Camera usage description</string>
+  <key>NSAppTransportSecurity</key>
+  <dict>
+      <key>NSAllowsArbitraryLoads</key><true/>
+  </dict>
+  ```
 
-```
+### 📥 Inclusão da Dependência
+
+Importe o pacote em seu código Dart:
+
+```dart
 import 'package:unico_check/unico_check.dart';
 ```
 
-## 📷 Captura de selfies
+---
 
-### 1️⃣ Inicializar nosso SDK
+## 📷 Captura de Selfies
 
-Crie uma instância do builder (gerado através da interface `UnicoCheckBuilder`) fornecendo como parâmetro o contexto em questão e a implementação da classe `UnicoListener`. Sobrescreva nossos métodos de callback com as lógicas de negócio de sua aplicação.
+### 1️⃣ Inicializar o SDK
 
-```
+Crie uma instância do builder (gerado através da interface `UnicoCheckBuilder`), fornecendo o contexto e a implementação da classe `UnicoListener`. Sobrescreva os métodos de callback com a lógica de negócio da sua aplicação:
+
+```dart
 class _MyHomePageState extends State<MyHomePage> implements UnicoListener {
 
     late UnicoCheckBuilder _unicoCheck;
@@ -133,158 +141,144 @@ class _MyHomePageState extends State<MyHomePage> implements UnicoListener {
 }
 ```
 
-`onErrorUnico(UnicoError error)`
+> **Detalhes dos Callbacks:**
+>
+> - **`onErrorUnico(UnicoError error)`:** Invocado sempre que ocorrer um erro de implementação, retornando um objeto do tipo **UnicoError** com detalhes do erro.
+> - **`onUserClosedCameraManually()`:** Chamado quando o usuário fecha a câmera manualmente (por exemplo, ao clicar no botão "Voltar").
+> - **`onSystemClosedCameraTimeoutSession()`:** Invocado quando o tempo máximo de sessão é atingido (sem capturar nenhuma imagem). Esse tempo pode ser configurado via `setTimeoutSession` (em segundos).
+> - **`onSystemChangedTypeCameraTimeoutFaceInference()`:** Chamado quando o tempo máximo para detecção da face é atingido (nenhuma face detectada), alterando automaticamente para o modo manual (sem o smart frame).
+>
+> **❗ Importante:** Todos os métodos acima devem ser implementados conforme indicado. Caso contrário, o projeto não compilará com sucesso.
 
-Este método será invocado sempre quando qualquer erro de implementação ocorrer ao utilizar algum de nossos métodos recebendo um parâmetro do tipo <b>UnicoError</b> que contém detalhes do erro.
+---
 
-`onUserClosedCameraManually()`
+### 2️⃣ Configurar Modo da Câmera
 
-Este método será invocado sempre quando o usuário fechar a câmera de forma manual, como por exemplo, ao clicar no botão "Voltar".
+#### 🔄 Modo Inteligente (Captura Automática - Smart Camera)
 
-`onSystemClosedCameraTimeoutSession()`
+Por padrão, o SDK possui enquadramento inteligente e captura automática habilitados. Se optar por esse modo, nenhuma configuração adicional é necessária.  
+Caso as configurações da câmera tenham sido alteradas, restaure-as utilizando os métodos `setAutoCapture` e `setSmartFrame`:
 
-Este método será invocado assim que o tempo máximo de sessão for atingido (Sem capturar nenhuma imagem).
-
-O tempo máximo da sessão pode ser configurado em nosso <b>builder</b> através do método `setTimeoutSession`. Este método deve receber o tempo máximo da sessão em <b>segundos</b>.
-
-`onSystemChangedTypeCameraTimeoutFaceInference()`
-
-Este método será invocado assim que o tempo máximo para detecção da face de um usuário for atingido (sem ter nada detectado). Neste caso, o modo de câmera é alterado automaticamente para o modo manual (sem o smart frame).
-
-<hr>
-
-### <strong>❗ Todos os métodos acima devem ser criados da forma indicada em seu projeto (mesmo que sem nenhuma lógica). Caso contrário, o projeto não compilará com sucesso.</strong>
-
-<hr>
-
-### 2️⃣ Configurar modo da câmera
-<p style='font-size: 15px'>
-  <b>Modo inteligente (captura automática - Smart Camera)</b>
-</p>
-
-Por padrão, nosso SDK possui o enquadramento inteligente e a captura automática habilitados. Caso decida utilizar este modo de câmera, não será necessário alterar nenhuma configuração.
-
-Caso as configurações da câmera tenham sido alteradas previamente em seu App, é possível restaurá-las através dos métodos `setAutoCapture` e `setSmartFrame`:
-
-```
+```dart
 UnicoCheckCameraOpener _opener = new UnicoCheck (this)
     .setAutoCapture(autoCapture: true)
     .setSmartFrame(smartFrame: true)
     .build();
 ```
-<hr>
 
-### <strong>❗ Não é possível implementar o método <span style='font-size: 15px'> `setAutoCapture(autoCapture: true)` </span> com o método <span style='font-size: 15px'> `setSmartFrame(smartFrame: false)`. </span>Ou seja, não é possível manter a captura automática sem o Smart Frame, pois ele é quem realiza o enquadramento inteligente. </strong>
+> **❗ Atenção:** Não é possível usar `setAutoCapture(autoCapture: true)` com `setSmartFrame(smartFrame: false)`. A captura automática depende do Smart Frame, que é responsável pelo enquadramento inteligente.
 
-<hr>
+#### 🔄 Modo Normal
 
-<p style='font-size: 15px'>
-  <b>Modo normal</b>
-</p>
+Para utilizar o modo manual, desative as configurações do Smart Camera:
 
-Por padrão, nosso SDK possui o enquadramento inteligente e a captura automática habilitados. Neste caso, para utilizar o modo manual ambas configurações relacionadas a Smart Camera devem ser desligadas através dos métodos `setAutoCapture` e `setSmartFrame`:
-
-```
+```dart
 UnicoCheckCameraOpener _opener = new UnicoCheck (this)
     .setAutoCapture(autoCapture: false)
     .setSmartFrame(smartFrame: false)
     .build();
 ```
 
-### 3️⃣ Customizar o frame de captura
+---
 
-<strong>Este passo é opcional, porém recomendado.</strong> Oferecemos a possibilidade de customização do frame de captura por meio do nosso SDK. Para customizar o frame, basta utilizar o método correspondente a propriedade a ser customizada, e posteriormente, aplicar o novo estilo através do método `setTheme()`. Para mais informações, consulte em nossa página de <a href='https://developers.unico.io/guias/flutter/referencias#customizações'>Referências</a> do SDK. 
+### 3️⃣ Customizar o Frame de Captura
 
-### 4️⃣ Efetuar abertura da câmera
+**Opcional, mas recomendado.**  
+Você pode customizar o frame de captura utilizando o método correspondente à propriedade desejada e, em seguida, aplicar o novo estilo através do método `setTheme()`.  
+Para mais informações, consulte as [Referências do SDK](https://developers.unico.io/docs/check/guias/flutter/referencias#customiza%C3%A7%C3%B5es).
 
-Para informar ao método de abertura de câmera "o que fazer" deve ser implantado os <i>listeners</i> que serão chamados em situações de sucesso ou erro. A implementação desses métodos deverá ser feita através de uma instância de classe `UnicoSelfie`.
+---
 
-<p>
+### 4️⃣ Efetuar a Abertura da Câmera
 
-  <b style='font-size: 15px'> Método `onSuccessSelfie` </b>
+Implemente os _listeners_ para tratar os eventos de sucesso ou erro ao abrir a câmera. Essa implementação é feita através da classe `UnicoSelfie`.
 
-</p>
+- **Método `onSuccessSelfie`:**  
+  Ao capturar uma imagem com sucesso, esse método será invocado e retornará um objeto do tipo `ResultCamera`, utilizado posteriormente nas chamadas das APIs REST.
 
-Ao efetuar uma captura de imagem com sucesso, este método será invocado e retornará um objeto do tipo `ResultCamera` que será utilizado posteriormente na chamada de nossas APIs REST.
+  ```dart
+  @override
+  void onSuccessSelfie(ResultCamera result) { }
+  ```
 
-```
-@override
-void onSuccessSelfie(ResultCamera result) { }
-```
+- **Método `onErrorSelfie`:**  
+  Em caso de erro na captura da imagem, este método será chamado e retornará um objeto do tipo `UnicoError`.
 
-<p>
+  ```dart
+  @override
+  void onErrorSelfie(UnicoError error) { }
+  ```
 
-  <b style='font-size: 15px'> Método `onErrorSelfie` </b>
+**Abrindo a Câmera:**
 
-</p>
+Utilize o método `openCameraSelfie`, passando como parâmetro a implementação da classe `UnicoSelfie`:
 
-Ao ocorrer algum erro na captura de imagem, este método será invocado e retornará um objeto do tipo `UnicoError`.
-
-```
-@override
-void onErrorSelfie(UnicoError error) { }
-```
-
-<p>
-
-  <b style='font-size: 15px'> Abrir câmera </b>
-
-</p>
-
-Devemos abrir a câmera utilizando o método `openCameraSelfie` recebendo como parâmetro a implementação da classe `UnicoSelfie`. 
-
-```
+```dart
 _opener.openCameraSelfie(listener: this)
 ```
 
-Em caso de sucesso, o objeto `ResultCamera` retornará 2 atributos: <strong> base64</strong> e <strong>encrypted</strong>.
+> **Observação:** Em caso de sucesso, o objeto `ResultCamera` retornará os atributos **base64** e **encrypted**:
+> - **base64:** Pode ser utilizado para exibir um preview da imagem no app.
+> - **encrypted:** Deve ser enviado na chamada das APIs REST do Unico Check. Para mais informações, consulte a [API Reference](https://www3.acesso.io/identity/services/v3/docs/).
 
-#### - `base64`: pode ser utilizado caso queira exibir um preview da imagem em seu app;
-#### - `encrypted`: deverá ser enviado na chamada de nossas APIs REST do <b>unico check</b>. Para mais informações detalhadas, visite nosso <a href='https://www3.acesso.io/identity/services/v3/docs/'>API Reference</a>.
+---
 
-## 📄 Captura de documentos
+## 📄 Captura de Documentos
 
-### 1️⃣ Inicializar nosso SDK
+### 1️⃣ Inicializar o SDK
 
-Na inicialização do SDK para captura de documentos são utilizadas exatamente os mesmos métodos <span style='font-size: 13px'>`onErrorUnico(UnicoError error), onUserClosedCameraManually(), onSystemClosedCameraTimeoutSession()`</span> e <span style='font-size: 13px'>`onSystemChangedTypeCameraTimeoutFaceInference()`</span> na [captura de selfie](#1️⃣-inicializar-nosso-sdk). 
+Na inicialização do SDK para captura de documentos, são utilizados os mesmos métodos de callback da captura de selfie:  
+`onErrorUnico(UnicoError error)`, `onUserClosedCameraManually()`, `onSystemClosedCameraTimeoutSession()` e `onSystemChangedTypeCameraTimeoutFaceInference()`.
 
-### 2️⃣ Efetuar abertura de câmera
+---
 
-Para implementar os <i>listeners</i> para evento de câmera, o processo é exatamente igual a realizada na [captura de selfie](#4️⃣-efetuar-abertura-da-câmera). Porém, os métodos de callback de sucesso e erro são chamados desta forma: 
-```
+### 2️⃣ Efetuar a Abertura da Câmera
+
+Para implementar os _listeners_ para eventos de câmera na captura de documentos, o processo é igual ao da captura de selfie. Porém, os métodos de callback de sucesso e erro são:
+
+```dart
 @override
 void onSuccessDocument(ResultCamera resultCamara) {}
 ```
-```
+
+```dart
 @override
 void onErrorDocument(UnicoError error) {}
 ```
 
-Finalmente, devemos abrir a câmera com as configurações feitas até aqui. Chamamos o método `openCameraDocument()`, disponilizado pelo objeto `UnicoCheck`. Este método receberá os parâmetros abaixo:
+Por fim, abra a câmera com as configurações definidas utilizando o método `openCameraDocument()`, que receberá os seguintes parâmetros:
 
-<b style='font-size: 15px'>Tipos de documentos a serem capturados, sendo eles: </b>
-- DocumentCameraTypes.CNH: 
-- DocumentCameraTypes.CPF: 
-- DocumentCameraTypes.OUTROS("descrição"): 
-- DocumentCameraTypes.RG_FRENTE: 
-- DocumentCameraTypes.RG_VERSO: 
-- DocumentCameraTypes.RG_FRENTE_NOVO: 
-- DocumentCameraTypes.RG_VERSO_NOVO: 
+- **Tipos de Documentos a Capturar:**
+  - `DocumentCameraTypes.CNH`
+  - `DocumentCameraTypes.CPF`
+  - `DocumentCameraTypes.OUTROS("descrição")`
+  - `DocumentCameraTypes.RG_FRENTE`
+  - `DocumentCameraTypes.RG_VERSO`
+  - `DocumentCameraTypes.RG_FRENTE_NOVO`
+  - `DocumentCameraTypes.RG_VERSO_NOVO`
 
-<b style='font-size: 15px'>Listeners configurados [acima](#2️⃣-efetuar-abertura-de-câmera)</b>
+- **Listeners:** Conforme configurados anteriormente.
 
-```
- _unicoCheck.build().openCameraDocument(
+Exemplo:
+
+```dart
+_unicoCheck.build().openCameraDocument(
         documentType: DocumentType.CNH,
         listener: this);
 ```
 
-Em caso de sucesso, o objeto ResultCamera retornará 2 atributos (`base64` e `encrypted`) igualmente a [captura de selfie](#base64-pode-ser-utilizado-caso-queira-exibir-um-preview-da-imagem-em-seu-app).
+> **Observação:** Em caso de sucesso, o objeto `ResultCamera` retornará os atributos **base64** e **encrypted**, assim como na captura de selfie.
 
-### 3️⃣ Customizar o frame de captura
+---
 
-<strong>Este passo é opcional, porém recomendado.</strong> Oferecemos a possibilidade de customização do frame de captura por meio do nosso SDK. Para customizar o frame, basta utilizar o método correspondente a propriedade a ser customizada, e posteriormente, aplicar o novo estilo através do método `setTheme()`. Para mais informações, consulte em nossa página de <a href='https://developers.unico.io/docs/check/guias/flutter/referencias#customiza%C3%A7%C3%B5es'>Referências</a> do SDK.
+### 3️⃣ Customizar o Frame de Captura
+
+**Opcional, mas recomendado.**  
+Você pode customizar o frame de captura utilizando o método correspondente à propriedade desejada e, em seguida, aplicar o novo estilo através do método `setTheme()`.  
+Para mais detalhes, consulte as [Referências do SDK](https://developers.unico.io/docs/check/guias/flutter/referencias#customiza%C3%A7%C3%B5es).
+
+---
 
 ## 🤔 Dúvidas
 
-Caso tenha alguma dúvida ou precise de ajuda com questões mais específicas, nossa <a href='https://developers.unico.io/docs/check/guias/flutter/overview'>documentação</a> está disponível.
+Caso tenha alguma dúvida ou precise de ajuda com questões específicas, nossa [documentação](https://developers.unico.io/docs/check/guias/flutter/overview) está à disposição.
