@@ -35,7 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
 
   unico_check: 4.26.0
-  fluttertoast: 8.1.2
+  # fluttertoast: ^8.1.2
   cupertino_icons: ^1.0.2
   get: ^4.6.5
 

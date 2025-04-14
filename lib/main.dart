@@ -1,31 +1,32 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unico_check/unico_check.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'unico check',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF8d7ad2),
         ),
       ),
-      home: MyHomePage(title: 'unico | check'),
+      home: const MyHomePage(title: 'unico | check'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -44,20 +45,12 @@ class _MyHomePageState extends State<MyHomePage>
       colorBackground: "#3295a8");
 
   final _configIos = UnicoConfig(
-      getProjectNumber: "Your ProjectNumber Ios",
-      getProjectId: "Your ProjectId Ios",
-      getMobileSdkAppId: "Your MobileSdkAppId Ios",
       getBundleIdentifier: "Your BundleIdentifier Ios",
-      getHostInfo: "Your HostInfo Ios",
-      getHostKey: "Your HostKey Ios");
+      getHostKey: "Your SDKKey Ios");
 
   final _configAndroid = UnicoConfig(
-      getProjectNumber: "Your ProjectNumber Android",
-      getProjectId: "Your ProjectId Android",
-      getMobileSdkAppId: "Your MobileSdkAppId Android",
       getBundleIdentifier: "Your BundleIdentifier Android",
-      getHostInfo: "Your HostInfo Android",
-      getHostKey: "Your HostKey Android");
+      getHostKey: "Your SDKKey Android");
 
   @override
   void initState() {
@@ -76,48 +69,41 @@ class _MyHomePageState extends State<MyHomePage>
   void configUnicoCamera() {
     _unicoCheck
         .setTheme(unicoTheme: _theme)
-        .setTimeoutSession(timeoutSession: 55);
+        .setTimeoutSession(timeoutSession: 55)
+        .setEnvironment(unicoEnvironment: UnicoEnvironment.UAT);
   }
 
   @override
   void onErrorDocument(UnicoError error) {
-    showToast("Erro ao abrir a camera: ${error.description}");
   }
 
   @override
   void onErrorSelfie(UnicoError error) {
-    showToast("Erro ao abrir a camera: ${error.description}");
   }
 
   @override
   void onErrorUnico(UnicoError error) {
-    showToast("Erro ao abrir a camera: ${error.description}");
   }
 
   @override
   void onSuccessDocument(ResultCamera resultCamera) {
-    showToast("Sucesso na captura ");
   }
 
   @override
   void onSuccessSelfie(ResultCamera result) {
-    showToast("Sucesso na captura, aqui temos o base64 e encrypted ");
     log(result.encrypted.toString());
   }
 
   @override
   void onSystemChangedTypeCameraTimeoutFaceInference() {
-    showToast("Sistema trocou o tipo da camera !");
   }
 
   @override
   void onSystemClosedCameraTimeoutSession() {
-    showToast("Sistema fechou a camera !");
   }
 
   @override
   void onUserClosedCameraManually() {
-    showToast("Usuario fechou camera manualmente !");
   }
 
   void setCameraSmart() {
@@ -297,13 +283,5 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  void showToast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.amber,
-      fontSize: 14,
-    );
-  }
+
 }

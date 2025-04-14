@@ -8,3 +8,5 @@
 -keep class br.com.makrosystems.haven.** { *; }
 -keep class HavenSDK.**{ *; }
 -keep class HavenSDK** { *; }
+-dontwarn kotlinx.parcelize.Parcelize
+-dontwarn org.slf4j.impl.StaticMDCBinder
