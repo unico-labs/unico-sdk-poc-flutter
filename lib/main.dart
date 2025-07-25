@@ -18,19 +18,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'unico check',
       theme: ThemeData(
-        primaryColor: Colors.grey[100],
-        hintColor: Colors.blue.shade600,
-        scaffoldBackgroundColor: Colors.grey[200],
+        primaryColor: Colors.white, 
+        hintColor: Colors.blue.shade600, 
+        scaffoldBackgroundColor: Colors.white, 
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.transparent,
-          elevation: 0,
-          toolbarHeight: 0,
+          backgroundColor: Colors.transparent, 
+          foregroundColor: Colors.transparent, 
+          elevation: 0, 
+          toolbarHeight: 0, 
         ),
         textTheme: const TextTheme(
-          headlineSmall: TextStyle(color: Colors.black87),
-          titleLarge: TextStyle(color: Colors.black87),
-          titleMedium: TextStyle(color: Colors.black54),
+          
+          headlineSmall: TextStyle(color: Colors.white),
+          titleLarge: TextStyle(color: Colors.white),
+          titleMedium: TextStyle(color: Colors.white70), 
+          titleSmall: TextStyle(color: Colors.white),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -63,10 +65,25 @@ class _MyHomePageState extends State<MyHomePage>
   String _centralStatusMessage = "Pronto para iniciar a biometria.";
 
   final _theme = UnicoTheme(
-      colorSilhouetteSuccess: "#4ca832",
-      colorSilhouetteError: "#fcdb03",
-      colorBackground: "#3295a8");
-
+      colorSilhouetteSuccess: "#4CAF50", 
+      colorSilhouetteError: "#F44336", 
+      colorBackground: "#FFFFFF", 
+      colorTextMessage: "#424242", 
+      colorBackgroundButtonPopupError: "#EF5350", 
+      colorTextPopupError: "#FFFFFF", 
+      colorProgressBar: "#FF5722", 
+      colorBackgroundTakePictureButton: "#2196F3", 
+      colorCancelButtonIcon: "#F44336", 
+      colorBoxMessage: "#2196F3", 
+      colorBackgroundPopupError: "#E57373", 
+      colorIconTakePictureButton: "#FFFFFF", 
+      colorTextButtonPopupError: "##FF5722", 
+      colorBackgroundBottomDocument: "#607D8B", 
+      colorSilhouetteNeutral: "#9E9E9E", 
+      colorTextBottomDocument: "#FFFFFF"
+      
+  );
+  
   final _configIos = UnicoConfig(
       getBundleIdentifier: "YOUR_BUNDLE_IDENTIFIER_IOS",
       getHostKey: "YOUR_SDK_KEY_IOS");
@@ -191,8 +208,8 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void openCameraSelfieSmart() {
-    _updateCentralStatus('Abrindo câmera de selfie inteligente...');
-    _addLog('openCameraSelfieSmart: Abrindo câmera de selfie inteligente.');
+    _updateCentralStatus('Abrindo câmera de selfie ...');
+    _addLog('openCameraSelfieSmart: Abrindo câmera de selfie.');
     setCameraSmart();
     _opener.openCameraSelfie(listener: this);
   }
@@ -242,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
-    const logContainerHeight = 200.0; 
+    const logContainerHeight = 200.0;
 
     return Scaffold(
       appBar: AppBar(
@@ -250,25 +267,25 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       body: Column(
         children: <Widget>[
-       
+   
           const SizedBox(height: 30),
           Center(
             child: Image.asset(
-              'assets/images/unicologo.png', 
-              width: 150, 
-              height: 70, 
-              fit: BoxFit.contain, 
+              'assets/images/unicologo.png',
+              width: 150,
+              height: 70,
+              fit: BoxFit.contain,
             ),
           ),
           const SizedBox(height: 20),
 
-          // --- Log Centralizado Superior ---
+         
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.85),
+                color: Colors.white.withOpacity(0.95),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -284,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage>
                 children: [
                   Text(
                     'Status:',
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold, color: Colors.black87), // Mantenha status label legível
                   ),
                   const SizedBox(height: 5),
                   Text(
@@ -297,7 +314,7 @@ class _MyHomePageState extends State<MyHomePage>
             ),
           ),
           
-      
+        
           Flexible(
             fit: FlexFit.tight,
             child: Container(
@@ -306,10 +323,10 @@ class _MyHomePageState extends State<MyHomePage>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-              
+                  // --- Seção de Câmera para Selfie ---
                   Text(
                     'Câmera para Selfie:',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87), // Mantenha título legível
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
@@ -319,10 +336,10 @@ class _MyHomePageState extends State<MyHomePage>
                   
                   const SizedBox(height: 20),
 
-                  
+               
                   Text(
                     'Câmera para Documentos:',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87), // Mantenha título legível
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
@@ -349,7 +366,7 @@ class _MyHomePageState extends State<MyHomePage>
             margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.85),
+              color: Colors.white.withOpacity(0.95),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -367,7 +384,7 @@ class _MyHomePageState extends State<MyHomePage>
                   children: [
                     Text(
                       'Logs do Aplicativo:',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold, color: Colors.black87), // Mantenha logs label legível
                     ),
                     TextButton(
                       onPressed: _clearLogs,
@@ -384,7 +401,7 @@ class _MyHomePageState extends State<MyHomePage>
                         padding: const EdgeInsets.symmetric(vertical: 2.0),
                         child: Text(
                           _logs[index],
-                          style: const TextStyle(fontSize: 12, color: Colors.black54, fontFamily: 'monospace'),
+                          style: const TextStyle(fontSize: 12, color: Colors.black54, fontFamily: 'monospace'), // Logs do aplicativo podem ser cinza escuro para contraste no fundo branco
                         ),
                       );
                     },
@@ -398,26 +415,26 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  
+ 
   Widget _buildIOSButton(BuildContext context, String text, VoidCallback onPressed) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        foregroundColor: Theme.of(context).primaryTextTheme.labelLarge?.color,
+        foregroundColor: Colors.white, 
         backgroundColor: Theme.of(context).hintColor,
         padding: const EdgeInsets.symmetric(vertical: 12),
       ),
-      child: Text(text, style: const TextStyle(fontSize: 15, color: Colors.white)),
+      child: Text(text, style: const TextStyle(fontSize: 15)),
     );
   }
 
-  
+
   Widget _buildIOSDocumentButton(BuildContext context, String text, VoidCallback onPressed) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black87,
-        backgroundColor: Colors.grey[300],
+        foregroundColor: Colors.white, 
+        backgroundColor: Colors.blue.shade300, 
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         minimumSize: const Size(140, 0),
         elevation: 0,
