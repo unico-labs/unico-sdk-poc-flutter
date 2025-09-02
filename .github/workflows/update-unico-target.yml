@@ -44,15 +44,7 @@ jobs:
 
       # 6️⃣ Run update script
       - name: Run update script
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
-        # # working-directory: ./target-repo
-        # run: python scripts/update_unico_target.py
-
-        # - name: 🗺️ MOSTRAR A ESTRUTURA DE PASTAS (IMPORTANTE)
-        run: |
-          echo "--- ONDE ESTOU AGORA ---"
-          pwd
-          echo " "
-          echo "--- LISTA COMPLETA DE ARQUIVOS ---"
-          ls -R
+        env:
+          GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
+        working-directory: ./target-repo
+        run: python scripts/update_unico_target.py
