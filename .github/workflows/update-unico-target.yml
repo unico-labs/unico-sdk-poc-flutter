@@ -14,7 +14,7 @@ jobs:
       - name: Checkout destino
         uses: actions/checkout@v4
         with:
-          repository: unico-labs/unico-sdk-poc-kotlin
+          repository: unico-labs/unico-sdk-poc-flutter
           token: ${{ secrets.TARGET_REPO_PAT }}
           path: target-repo
           persist-credentials: false
