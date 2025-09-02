@@ -18,7 +18,12 @@ PUBSPEC_PATH = os.path.join(REPO_PATH, "pubspec.yaml")
 # ===============================
 response = requests.get(URL)
 soup = BeautifulSoup(response.text, "html.parser")
-div = soup.find("div", class_="flex-1 z-1 max-w-full break-words text-start justify-self-start leading-snug")
+
+# Corrige a busca pela div (cada classe é separada na lista)
+div = soup.find("div", class_=[
+    "flex-1", "z-1", "max-w-full", "break-words", 
+    "text-start", "justify-self-start", "leading-snug"
+])
 
 site_version = None
 release_date = None
