@@ -8,7 +8,7 @@ import yaml
 # ===============================
 # Settings
 # ===============================
-URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-android/release-notes"
+URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-flutter/release-notes"
 DEPENDENCY = "unico_check"
 REPO_PATH = "target-repo"  # Path to the local repository
 PUBSPEC_PATH = os.path.join(REPO_PATH, "pubspec.yaml")
