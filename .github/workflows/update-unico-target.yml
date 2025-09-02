@@ -1,4 +1,4 @@
-name: Update Unico SDK Android in Target Repo
+name: Update Unico SDK Flutter in Target Repo
 
 on:
   schedule:
@@ -46,4 +46,5 @@ jobs:
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
-        run: python update_unico_target.py
+        working-directory: ./target-repo
+        run: python scripts/update_unico_target.py
