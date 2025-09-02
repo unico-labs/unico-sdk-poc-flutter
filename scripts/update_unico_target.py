@@ -22,7 +22,7 @@ site_version = None
 release_date = None
 
 for span in spans:
-    text_content = span.get_text(strip=True)
+    text_content = span.get_text(strip=True).replace("\u200b", "")  # remove zero-width space
     match = re.search(r"Versão\s*([\d.]+)\s*-\s*(\d{2}/\d{2}/\d{4})", text_content)
     if match:
         site_version = match.group(1)
