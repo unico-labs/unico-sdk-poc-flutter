@@ -46,4 +46,4 @@ jobs:
       - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.TARGET_REPO_PAT }}
-        run: python scripts/update_unico_target.py
+        run: python update_unico_target.py
