@@ -17,16 +17,17 @@ REPO_PATH = "."  # Caminho para o repositório local
 response = requests.get(URL)
 soup = BeautifulSoup(response.text, "html.parser")
 
-span = soup.find("span", string=re.compile(r"Versão\s+\d"))
+spans = soup.find_all("span")
 site_version = None
 release_date = None
 
-if span:
+for span in spans:
     text_content = span.get_text(strip=True)
-    match = re.search(r"Versão\s+([\d.]+)\s*-\s*(\d{2}/\d{2}/\d{4})", text_content)
+    match = re.search(r"Versão\s*([\d.]+)\s*-\s*(\d{2}/\d{2}/\d{4})", text_content)
     if match:
         site_version = match.group(1)
         release_date = match.group(2)
+        break
 
 if not site_version:
     print("❌ Could not capture the version from the website")
