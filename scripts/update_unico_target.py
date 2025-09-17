@@ -9,10 +9,10 @@ import os
 # ===============================
 URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-flutter/release-notes"
 DEPENDENCY = "unico_check"
-REPO_PATH = "."  # Caminho para o repositório local
+REPO_PATH = "."  # Path to the local repository
 
 # ===============================
-# 1️⃣ Buscar versão + data no site
+# Step 1: Fetch version and release date from the website
 # ===============================
 response = requests.get(URL)
 soup = BeautifulSoup(response.text, "html.parser")
@@ -37,8 +37,9 @@ print(f"📦 Latest version on the website: {site_version}")
 print(f"🗓️ Release date: {release_date}")
 
 # ===============================
-# 2️⃣ Ler pubspec.yaml do repo alvo
+# Step 2: Read pubspec.yaml from the target repository
 # ===============================
+
 pubspec_path = os.path.join(REPO_PATH, "pubspec.yaml")
 with open(pubspec_path, "r", encoding="utf-8") as f:
     lines = f.readlines()
@@ -52,7 +53,7 @@ for line in lines:
 print(f"📂 Current version in pubspec.yaml: {current_version}")
 
 # ===============================
-# 3️⃣ Atualizar se necessário
+# Step 3: Update dependency if necessary
 # ===============================
 if current_version != site_version:
     new_lines = []
@@ -70,26 +71,47 @@ if current_version != site_version:
     branch = f"update-{DEPENDENCY}-v{site_version}"
     tag = f"{DEPENDENCY}-v{site_version}"
 
+    # Create branch, commit, and push changes
     subprocess.run(["git", "checkout", "-b", branch], check=True)
     subprocess.run(["git", "config", "user.name", "github-actions"], check=True)
     subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
-    subprocess.run(["git", "add", "pubspec.yaml"], check=True)
+    subprocess.run(["git", "add", "package.json"], check=True)
     subprocess.run(["git", "commit", "-m", f"chore: bump {DEPENDENCY} to v{site_version}"], check=True)
     subprocess.run(["git", "push", "origin", branch], check=True)
 
+    # Create git tag and push it
     subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True)
     subprocess.run(["git", "push", "origin", tag], check=True)
 
+    # Create Pull Request using GitHub CLI
     body = f"""
     Automatic update of `{DEPENDENCY}` to version **{site_version}** 📅 Release date: **{release_date}** 🔗 [Official Release Notes]({URL})
     """
 
-    subprocess.run([
+    # MODIFIED: Capture the output of the 'gh pr create' command
+    pr_process = subprocess.run([
         "gh", "pr", "create",
         "--title", f"Update {DEPENDENCY} to v{site_version}",
         "--body", body,
         "--head", branch
-    ], check=True)
+    ], check=True, capture_output=True, text=True)
+
+    # Extract the PR URL from stdout
+    pr_url = pr_process.stdout.strip()
+    print(f"✅ Pull Request created: {pr_url}")
+
+    # Export output variables for GitHub Actions
+    # This section writes the necessary data to a file so GitHub Actions can read them
+    if "GITHUB_OUTPUT" in os.environ:
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            print(f"updated=true", file=f)
+            print(f"new_version={site_version}", file=f)
+            print(f"release_date={release_date}", file=f)
+            print(f"pr_url={pr_url}", file=f)
 
 else:
     print("🔄 Already at the latest version, nothing to do.")
+    # If nothing was updated, set the 'updated' output to 'false'
+    if "GITHUB_OUTPUT" in os.environ:
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            print(f"updated=false", file=f)
