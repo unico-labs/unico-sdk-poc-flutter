@@ -13,6 +13,8 @@ jobs:
       ### Step 0: Checkout the Action's repository (to get access to the script)
       - name: Checkout Action repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       ### Step 1: Checkout the target repository (target-repo)
       - name: Checkout target
