@@ -3,6 +3,7 @@ import re
 from bs4 import BeautifulSoup
 import subprocess
 import os
+import time
 
 # ===============================
 # Constants
@@ -34,8 +35,8 @@ latest_version_header = soup.find("h2", class_="changelog-version")
 if latest_version_header:
     version_text = latest_version_header.get_text()
     match = re.search(r'([\d.]+)', version_text)
-if match:
-    site_version = match.group(1)
+    if match:
+        site_version = match.group(1)
     content_div = latest_version_header.find_next_sibling("div", class_="changelog-content")
 
     if content_div:
@@ -104,7 +105,9 @@ if current_version != site_version:
 
     print(f"✅ Updated {DEPENDENCY} to version {site_version}")
 
-    branch = f"update-{DEPENDENCY}-v{site_version}"
+    timestamp = int(time.time())
+
+    branch = f"update-{DEPENDENCY}-v{site_version}-{timestamp}"
     tag = f"{DEPENDENCY}-v{site_version}"
 
     # Create branch, commit, and push changes
@@ -113,7 +116,7 @@ if current_version != site_version:
     subprocess.run(["git", "config", "user.email", "github-actions@github.com"], check=True)
     subprocess.run(["git", "add", "pubspec.yaml"], check=True)
     subprocess.run(["git", "commit", "-m", f"chore: bump {DEPENDENCY} to v{site_version}"], check=True)
-    subprocess.run(["git", "push", "origin", branch], check=True)
+    subprocess.run(["git", "push", "-v", "origin", branch], check=True)
 
     # Create git tag and push it
     subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True)
@@ -151,6 +154,7 @@ if current_version != site_version:
             print(f"new_version={site_version}", file=f)
             print(f"release_date={release_date}", file=f)
             print(f"pr_url={pr_url}", file=f)
+            print(f"release_notes={formatted_notes}", file=f)
 
 else:
     print("🔄 Already at the latest version, nothing to do.")
