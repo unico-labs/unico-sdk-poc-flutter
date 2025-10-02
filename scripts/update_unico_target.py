@@ -1,33 +1,52 @@
 import requests
-from bs4 import BeautifulSoup
 import re
+from bs4 import BeautifulSoup
 import subprocess
 import os
 
 # ===============================
-# Settings
+# Constants
 # ===============================
-URL = "https://devcenter.unico.io/idcloud/integracao/sdk/integracao-sdks/sdk-flutter/release-notes"
+URL = "https://pub.dev/packages/unico_check/changelog"
 DEPENDENCY = "unico_check"
-REPO_PATH = "."  # Path to the local repository
+REPO_PATH = "."
 
 # ===============================
-# Step 1: Fetch version and release date from the website
+# Step 1: Fetch and parse the website
 # ===============================
-response = requests.get(URL)
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+}
+response = requests.get(URL, headers=headers)
+response.raise_for_status()
+
 soup = BeautifulSoup(response.text, "html.parser")
 
-spans = soup.find_all("span")
 site_version = None
 release_date = None
+release_notes = []
 
-for span in spans:
-    text_content = span.get_text(strip=True).replace("\u200b", "")  # remove zero-width space
-    match = re.search(r"Versão\s*([\d.]+)\s*-\s*(\d{2}/\d{2}/\d{4})", text_content)
-    if match:
-        site_version = match.group(1)
-        release_date = match.group(2)
-        break
+# ===============================
+# Step 2: Extract information based on the pub.dev structure
+# ===============================
+latest_version_header = soup.find("h2", class_="changelog-version")
+
+if latest_version_header:
+    site_version = latest_version_header.get_text(strip=True).split()[0]
+    content_div = latest_version_header.find_next_sibling("div", class_="changelog-content")
+
+    if content_div:
+        date_paragraph = content_div.find("p", string=re.compile(r"Publicado:"))
+        if date_paragraph:
+            match_date = re.search(r"(\d{2}/\d{2}/\d{4})", date_paragraph.get_text())
+            if match_date:
+                release_date = match_date.group(1)
+
+        notes_elements = content_div.find_all(['li', 'p'])
+        for element in notes_elements:
+            note_text = element.get_text(strip=True)
+            if "Publicado:" not in note_text and note_text:
+                release_notes.append(note_text)
 
 if not site_version:
     print("❌ Could not capture the version from the website")
@@ -36,19 +55,35 @@ if not site_version:
 print(f"📦 Latest version on the website: {site_version}")
 print(f"🗓️ Release date: {release_date}")
 
-# ===============================
-# Step 2: Read pubspec.yaml from the target repository
-# ===============================
+# --- BLOCO CORRIGIDO E REINSERIDO ---
+if release_notes:
+    print("\n📝 Release notes found:")
+    for note in release_notes:
+        print(f"- {note}")
+else:
+    print("⚠️ No release notes were found.")
+# --- FIM DA CORREÇÃO ---
 
+# ===============================
+# Step 2.5: Read pubspec.yaml from the target repository
+# ===============================
 pubspec_path = os.path.join(REPO_PATH, "pubspec.yaml")
-with open(pubspec_path, "r", encoding="utf-8") as f:
-    lines = f.readlines()
+try:
+    with open(pubspec_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+except FileNotFoundError:
+    print(f"❌ Error: pubspec.yaml not found at {pubspec_path}")
+    exit(1)
 
 current_version = None
 for line in lines:
     if line.strip().startswith(f"{DEPENDENCY}:"):
         current_version = line.strip().split(":")[1].strip()
         break
+
+if current_version is None:
+    print(f"❌ Error: Dependency '{DEPENDENCY}' not found in {pubspec_path}")
+    exit(1)
 
 print(f"📂 Current version in pubspec.yaml: {current_version}")
 
@@ -84,11 +119,20 @@ if current_version != site_version:
     subprocess.run(["git", "push", "origin", tag], check=True)
 
     # Create Pull Request using GitHub CLI
+    formatted_notes = "\n".join([f"- {note}" for note in release_notes])
     body = f"""
-    Automatic update of `{DEPENDENCY}` to version **{site_version}** 📅 Release date: **{release_date}** 🔗 [Official Release Notes]({URL})
+    Automatic update of `{DEPENDENCY}` to version **{site_version}**.
+    
+    📅 **Release date:** {release_date}
+    🔗 **Changelog:** {URL}
+
+    ---
+    
+    ### Release Notes
+    {formatted_notes}
     """
 
-    # MODIFIED: Capture the output of the 'gh pr create' command
+    # Capture the output of the 'gh pr create' command
     pr_process = subprocess.run([
         "gh", "pr", "create",
         "--title", f"Update {DEPENDENCY} to v{site_version}",
@@ -96,12 +140,10 @@ if current_version != site_version:
         "--head", branch
     ], check=True, capture_output=True, text=True)
 
-    # Extract the PR URL from stdout
     pr_url = pr_process.stdout.strip()
     print(f"✅ Pull Request created: {pr_url}")
 
     # Export output variables for GitHub Actions
-    # This section writes the necessary data to a file so GitHub Actions can read them
     if "GITHUB_OUTPUT" in os.environ:
         with open(os.environ["GITHUB_OUTPUT"], "a") as f:
             print(f"updated=true", file=f)
@@ -111,7 +153,6 @@ if current_version != site_version:
 
 else:
     print("🔄 Already at the latest version, nothing to do.")
-    # If nothing was updated, set the 'updated' output to 'false'
     if "GITHUB_OUTPUT" in os.environ:
         with open(os.environ["GITHUB_OUTPUT"], "a") as f:
             print(f"updated=false", file=f)
