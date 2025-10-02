@@ -32,7 +32,10 @@ release_notes = []
 latest_version_header = soup.find("h2", class_="changelog-version")
 
 if latest_version_header:
-    site_version = latest_version_header.get_text(strip=True).split()[0]
+    version_text = latest_version_header.get_text()
+    match = re.search(r'([\d.]+)', version_text)
+if match:
+    site_version = match.group(1)
     content_div = latest_version_header.find_next_sibling("div", class_="changelog-content")
 
     if content_div:
@@ -55,14 +58,12 @@ if not site_version:
 print(f"📦 Latest version on the website: {site_version}")
 print(f"🗓️ Release date: {release_date}")
 
-# --- BLOCO CORRIGIDO E REINSERIDO ---
 if release_notes:
     print("\n📝 Release notes found:")
     for note in release_notes:
         print(f"- {note}")
 else:
     print("⚠️ No release notes were found.")
-# --- FIM DA CORREÇÃO ---
 
 # ===============================
 # Step 2.5: Read pubspec.yaml from the target repository
