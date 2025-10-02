@@ -48,7 +48,7 @@ if latest_version_header:
 
         notes_elements = content_div.find_all(['li', 'p'])
         for element in notes_elements:
-            note_text = element.get_text(strip=True)
+            note_text = element.get_text(strip=True, separator=" ")
             if "Publicado:" not in note_text and note_text:
                 release_notes.append(note_text)
 
@@ -161,7 +161,9 @@ if current_version != site_version:
             print(f"new_version={site_version}", file=f)
             print(f"release_date={release_date}", file=f)
             print(f"pr_url={pr_url}", file=f)
-            print(f"release_notes={formatted_notes}", file=f)
+            print("release_notes<<EONOTES", file=f)
+            print(formatted_notes, file=f)
+            print("EONOTES", file=f)
 
 else:
     print("🔄 Already at the latest version, nothing to do.")
