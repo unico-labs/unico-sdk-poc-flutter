@@ -106,7 +106,6 @@ if current_version != site_version:
     print(f"✅ Updated {DEPENDENCY} to version {site_version}")
 
     timestamp = int(time.time())
-
     branch = f"update-{DEPENDENCY}-v{site_version}-{timestamp}"
     tag = f"{DEPENDENCY}-v{site_version}"
 
@@ -118,9 +117,17 @@ if current_version != site_version:
     subprocess.run(["git", "commit", "-m", f"chore: bump {DEPENDENCY} to v{site_version}"], check=True)
     subprocess.run(["git", "push", "-v", "origin", branch], check=True)
 
-    # Create git tag and push it
-    subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True)
-    subprocess.run(["git", "push", "origin", tag], check=True)
+    print(f"Checking if tag '{tag}' already exists...")
+    tag_check_process = subprocess.run(["git", "ls-remote", "--tags", "origin"], capture_output=True, text=True)
+    existing_tags = tag_check_process.stdout
+
+    if f"refs/tags/{tag}" in existing_tags:
+        print(f"✅ Tag '{tag}' already exists on remote. Skipping creation.")
+    else:
+        print(f"Creating and pushing tag '{tag}'...")
+
+        subprocess.run(["git", "tag", "-a", tag, "-m", f"Release {DEPENDENCY} {site_version} ({release_date})"], check=True)
+        subprocess.run(["git", "push", "origin", tag], check=True)
 
     # Create Pull Request using GitHub CLI
     formatted_notes = "\n".join([f"- {note}" for note in release_notes])
